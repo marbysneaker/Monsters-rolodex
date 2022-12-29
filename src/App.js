@@ -1,6 +1,6 @@
 import { Component } from 'react';
-
-
+import CardList from './components/card-list/card-list.component';
+import SearchBox from './components/search-box/search-box.component';
 
 import './App.css';
 
@@ -12,7 +12,7 @@ class App extends Component {
       monsters: [],
       searchField: ''
     };
-    console.log('constructor')
+    
   }
 
   componentDidMount() {
@@ -22,11 +22,8 @@ class App extends Component {
         this.setState(
           () => {
           return {monsters: users};
-      },
-          () => {
-            console.log(this.state);
-          }));
-  }
+      }))
+  };
 
   onSearchChange = (event) => {
     console.log(event.target.vlue);
@@ -40,7 +37,7 @@ class App extends Component {
       
   render(){
 
-      console.log('render');
+      
 
       const {monsters, searchField} = this.state;
       const {onSearchChange} = this;
@@ -49,14 +46,11 @@ class App extends Component {
         return monster.name.toLocaleLowerCase().includes(searchField)});
       return (
       <div className="App">
-        <input className='search-box' type='search' placeholder = 'search monster' onChange={onSearchChange} />
-        {
-          filteredMonsters.map((monster) => {
-            return <div key={monster.name}>
-              <h1>{monster.name}</h1></div>;
-          })
-        }
+        {/* <input className='search-box' type='search' placeholder = 'search monster' onChange={onSearchChange} /> */}
+        <SearchBox onChangeHandler = {onSearchChange} placeholder='Search Monsters'  className='search-box'/>
         
+         
+        <CardList monsters={filteredMonsters}/>
       </div>
     );
   }
